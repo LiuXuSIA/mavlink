@@ -299,5 +299,83 @@
         <field type="float" name="obstacle_z">obstacle Z position (NED)</field>
 		<field type="uint8_t" name="obstacle_valid">whether the obstacle is valid</field>
 	</message>
+
+	<!-- UAVGP 2016 -->
+	<message id="221" name="FIXED_TARGET_POSITION">
+		<description>Some fixed positions that would be goten before takeoff by GPS (GCS->Pix->Mavros)</description>
+		<field type="double" name="home_lat">home point latitude, in deg</field>
+        <field type="double" name="home_lon">home point longitude, in deg</field>
+        <field type="float" name="home_alt">home point altitude, in m</field>
+		<field type="double" name="observe_lat">observe point latitude, in deg</field>
+        <field type="double" name="observe_lon">observe point longitude, in deg</field>
+        <field type="float" name="observe_alt">observe point altitude, in m</field>
+		<field type="double" name="spray_left_lat">spray point latitude (left), in deg</field>
+        <field type="double" name="spray_left_lon">spray point longitude (left), in deg</field>
+        <field type="float" name="spray_left_alt">spray point altitude (left), in m</field>
+		<field type="double" name="spray_right_lat">spray point latitude (right), in deg</field>
+        <field type="double" name="spray_right_lon">spray point longitude (right), in deg</field>
+        <field type="float" name="spray_right_alt">spray point altitude (right), in m</field>
+	</message>
+	<message id="222" name="FIXED_TARGET_RETURN">
+		<description>Pix gets FIXED_TARGET_POSITION message would return this message (Pix->GCS)</description>
+		<field type="uint64_t" name="timestamp">timestamp</field>
+		<field type="double" name="home_lat">home point latitude, in deg</field>
+        <field type="double" name="home_lon">home point longitude, in deg</field>
+        <field type="float" name="home_alt">home point altitude, in m</field>
+		<field type="double" name="observe_lat">observe point latitude, in deg</field>
+        <field type="double" name="observe_lon">observe point longitude, in deg</field>
+        <field type="float" name="observe_alt">observe point altitude, in m</field>
+		<field type="double" name="spray_left_lat">spray point latitude (left), in deg</field>
+        <field type="double" name="spray_left_lon">spray point longitude (left), in deg</field>
+        <field type="float" name="spray_left_alt">spray point altitude (left), in m</field>
+		<field type="double" name="spray_right_lat">spray point latitude (right), in deg</field>
+        <field type="double" name="spray_right_lon">spray point longitude (right), in deg</field>
+        <field type="float" name="spray_right_alt">spray point altitude (right), in m</field>
+	</message>
+	<message id="223" name="YAW_SP_CALCULATED">
+		<description>A yaw set point calculated by SBC from FIXED_TARGET_POSITION message (Mavros->Pix->GCS)</description>
+		<field type="uint64_t" name="timestamp">timestamp</field>
+		<field type="float" name="yaw_sp">the calculated yaw set point, in rad (-pi ... pi)</field>
+	</message>
+	<message id="224" name="TASK_STATUS_CHANGE">
+		<description>GCS would change the task status of RUAV by this message (GCS->Pix->Mavros)</description>
+		<field type="uint8_t" name="num_odd_even">0, 1 or 2 represent spray all number, odd number or even number</field>
+		<field type="uint8_t" name="task_status">task status NO. about Task State Machine, 0~16~30</field>
+		<field type="uint8_t" name="loop_value">loop number of current task, 0~5</field>
+	</message>
+	<message id="225" name="TASK_STATUS_MONITOR">
+		<description>Return current task statue and taget point (Mavros->Pix->GCS)</description>
+		<field type="uint64_t" name="timestamp">timestamp</field>
+		<field type="uint8_t" name="num_odd_even">0, 1 or 2 represent spray all number, odd number or even number</field>
+		<field type="uint8_t" name="task_status">task status NO. about Task State Machine, 0~16~30</field>
+		<field type="uint8_t" name="loop_value">loop number of current task, 0~5</field>
+		<field type="double" name="target_lat">target latitude, in deg</field>
+        <field type="double" name="target_lon">target longitude, in deg</field>
+        <field type="float" name="target_alt">target altitude, in m</field>
+	</message>
+	<message id="226" name="VISION_NUM_SCAN">
+		<description>Scan all numbers and get their positions in the beginning (Mavros->Pix->GCS)</description>
+		<field type="uint64_t" name="timestamp">timestamp</field>
+		<field type="uint8_t" name="board_num">current board number</field>
+		<field type="float" name="board_x">current board number X position (NED)</field>
+		<field type="float" name="board_y">current board number Y position (NED)</field>
+        <field type="float" name="board_z">current board number Z position (NED)</field>
+		<field type="uint8_t" name="board_valid">whether this number is gotten</field>
+	</message>
+	<message id="227" name="VISION_ONE_NUM_GET">
+		<description>Get the number by vision in task (Mavros->Pix->GCS)</description>
+		<field type="uint64_t" name="timestamp">timestamp</field>
+		<field type="uint8_t" name="loop_value">loop number of current task but not 0, 1~5</field>
+		<field type="uint8_t" name="num">gotten number by vision</field>
+	</message>
+	<message id="228" name="OBSTACLE_POSITION">
+		<description>Get the obstacle position (Mavros->Pix->GCS)</description>
+		<field type="uint64_t" name="timestamp">timestamp</field>
+		<field type="float" name="obstacle_x">obstacle X position (NED)</field>
+		<field type="float" name="obstacle_y">obstacle Y position (NED)</field>
+        <field type="float" name="obstacle_z">obstacle Z position (NED)</field>
+		<field type="uint8_t" name="obstacle_valid">whether the obstacle is valid</field>
+	</message>	
+
 </messages>
 </mavlink>
