@@ -2257,14 +2257,6 @@ MAVLINK_MSG_ID_VISION_ONE_NUM_GET_M2P = 163
 MAVLINK_MSG_ID_VISION_ONE_NUM_GET_P2G = 164
 MAVLINK_MSG_ID_OBSTACLE_POSITION_M2P = 165
 MAVLINK_MSG_ID_OBSTACLE_POSITION_P2G = 166
-MAVLINK_MSG_ID_FIXED_TARGET_POSITION = 221
-MAVLINK_MSG_ID_FIXED_TARGET_RETURN = 222
-MAVLINK_MSG_ID_YAW_SP_CALCULATED = 223
-MAVLINK_MSG_ID_TASK_STATUS_CHANGE = 224
-MAVLINK_MSG_ID_TASK_STATUS_MONITOR = 225
-MAVLINK_MSG_ID_VISION_NUM_SCAN = 226
-MAVLINK_MSG_ID_VISION_ONE_NUM_GET = 227
-MAVLINK_MSG_ID_OBSTACLE_POSITION = 228
 MAVLINK_MSG_ID_HEARTBEAT = 0
 MAVLINK_MSG_ID_SYS_STATUS = 1
 MAVLINK_MSG_ID_SYSTEM_TIME = 2
@@ -2923,24 +2915,24 @@ class MAVLink_task_status_change_g2p_message(MAVLink_message):
         '''
         id = MAVLINK_MSG_ID_TASK_STATUS_CHANGE_G2P
         name = 'TASK_STATUS_CHANGE_G2P'
-        fieldnames = ['num_odd_even', 'task_status', 'loop_value']
-        ordered_fieldnames = [ 'num_odd_even', 'task_status', 'loop_value' ]
-        format = '<BBB'
-        native_format = bytearray('<BBB', 'ascii')
+        fieldnames = ['spray_duration', 'task_status', 'loop_value']
+        ordered_fieldnames = [ 'spray_duration', 'task_status', 'loop_value' ]
+        format = '<fBB'
+        native_format = bytearray('<fBB', 'ascii')
         orders = [0, 1, 2]
         lengths = [1, 1, 1]
         array_lengths = [0, 0, 0]
-        crc_extra = 85
+        crc_extra = 74
 
-        def __init__(self, num_odd_even, task_status, loop_value):
+        def __init__(self, spray_duration, task_status, loop_value):
                 MAVLink_message.__init__(self, MAVLink_task_status_change_g2p_message.id, MAVLink_task_status_change_g2p_message.name)
                 self._fieldnames = MAVLink_task_status_change_g2p_message.fieldnames
-                self.num_odd_even = num_odd_even
+                self.spray_duration = spray_duration
                 self.task_status = task_status
                 self.loop_value = loop_value
 
         def pack(self, mav, force_mavlink1=False):
-                return MAVLink_message.pack(self, mav, 85, struct.pack('<BBB', self.num_odd_even, self.task_status, self.loop_value), force_mavlink1=force_mavlink1)
+                return MAVLink_message.pack(self, mav, 74, struct.pack('<fBB', self.spray_duration, self.task_status, self.loop_value), force_mavlink1=force_mavlink1)
 
 class MAVLink_task_status_change_p2m_message(MAVLink_message):
         '''
@@ -2949,24 +2941,24 @@ class MAVLink_task_status_change_p2m_message(MAVLink_message):
         '''
         id = MAVLINK_MSG_ID_TASK_STATUS_CHANGE_P2M
         name = 'TASK_STATUS_CHANGE_P2M'
-        fieldnames = ['num_odd_even', 'task_status', 'loop_value']
-        ordered_fieldnames = [ 'num_odd_even', 'task_status', 'loop_value' ]
-        format = '<BBB'
-        native_format = bytearray('<BBB', 'ascii')
+        fieldnames = ['spray_duration', 'task_status', 'loop_value']
+        ordered_fieldnames = [ 'spray_duration', 'task_status', 'loop_value' ]
+        format = '<fBB'
+        native_format = bytearray('<fBB', 'ascii')
         orders = [0, 1, 2]
         lengths = [1, 1, 1]
         array_lengths = [0, 0, 0]
-        crc_extra = 201
+        crc_extra = 214
 
-        def __init__(self, num_odd_even, task_status, loop_value):
+        def __init__(self, spray_duration, task_status, loop_value):
                 MAVLink_message.__init__(self, MAVLink_task_status_change_p2m_message.id, MAVLink_task_status_change_p2m_message.name)
                 self._fieldnames = MAVLink_task_status_change_p2m_message.fieldnames
-                self.num_odd_even = num_odd_even
+                self.spray_duration = spray_duration
                 self.task_status = task_status
                 self.loop_value = loop_value
 
         def pack(self, mav, force_mavlink1=False):
-                return MAVLink_message.pack(self, mav, 201, struct.pack('<BBB', self.num_odd_even, self.task_status, self.loop_value), force_mavlink1=force_mavlink1)
+                return MAVLink_message.pack(self, mav, 214, struct.pack('<fBB', self.spray_duration, self.task_status, self.loop_value), force_mavlink1=force_mavlink1)
 
 class MAVLink_task_status_monitor_m2p_message(MAVLink_message):
         '''
@@ -2974,20 +2966,20 @@ class MAVLink_task_status_monitor_m2p_message(MAVLink_message):
         '''
         id = MAVLINK_MSG_ID_TASK_STATUS_MONITOR_M2P
         name = 'TASK_STATUS_MONITOR_M2P'
-        fieldnames = ['timestamp', 'num_odd_even', 'task_status', 'loop_value', 'target_lat', 'target_lon', 'target_alt']
-        ordered_fieldnames = [ 'timestamp', 'target_lat', 'target_lon', 'target_alt', 'num_odd_even', 'task_status', 'loop_value' ]
-        format = '<QddfBBB'
-        native_format = bytearray('<QddfBBB', 'ascii')
-        orders = [0, 4, 5, 6, 1, 2, 3]
+        fieldnames = ['timestamp', 'spray_duration', 'task_status', 'loop_value', 'target_lat', 'target_lon', 'target_alt']
+        ordered_fieldnames = [ 'timestamp', 'target_lat', 'target_lon', 'spray_duration', 'target_alt', 'task_status', 'loop_value' ]
+        format = '<QddffBB'
+        native_format = bytearray('<QddffBB', 'ascii')
+        orders = [0, 3, 5, 6, 1, 2, 4]
         lengths = [1, 1, 1, 1, 1, 1, 1]
         array_lengths = [0, 0, 0, 0, 0, 0, 0]
-        crc_extra = 16
+        crc_extra = 63
 
-        def __init__(self, timestamp, num_odd_even, task_status, loop_value, target_lat, target_lon, target_alt):
+        def __init__(self, timestamp, spray_duration, task_status, loop_value, target_lat, target_lon, target_alt):
                 MAVLink_message.__init__(self, MAVLink_task_status_monitor_m2p_message.id, MAVLink_task_status_monitor_m2p_message.name)
                 self._fieldnames = MAVLink_task_status_monitor_m2p_message.fieldnames
                 self.timestamp = timestamp
-                self.num_odd_even = num_odd_even
+                self.spray_duration = spray_duration
                 self.task_status = task_status
                 self.loop_value = loop_value
                 self.target_lat = target_lat
@@ -2995,7 +2987,7 @@ class MAVLink_task_status_monitor_m2p_message(MAVLink_message):
                 self.target_alt = target_alt
 
         def pack(self, mav, force_mavlink1=False):
-                return MAVLink_message.pack(self, mav, 16, struct.pack('<QddfBBB', self.timestamp, self.target_lat, self.target_lon, self.target_alt, self.num_odd_even, self.task_status, self.loop_value), force_mavlink1=force_mavlink1)
+                return MAVLink_message.pack(self, mav, 63, struct.pack('<QddffBB', self.timestamp, self.target_lat, self.target_lon, self.spray_duration, self.target_alt, self.task_status, self.loop_value), force_mavlink1=force_mavlink1)
 
 class MAVLink_task_status_monitor_p2g_message(MAVLink_message):
         '''
@@ -3003,20 +2995,20 @@ class MAVLink_task_status_monitor_p2g_message(MAVLink_message):
         '''
         id = MAVLINK_MSG_ID_TASK_STATUS_MONITOR_P2G
         name = 'TASK_STATUS_MONITOR_P2G'
-        fieldnames = ['timestamp', 'num_odd_even', 'task_status', 'loop_value', 'target_lat', 'target_lon', 'target_alt']
-        ordered_fieldnames = [ 'timestamp', 'target_lat', 'target_lon', 'target_alt', 'num_odd_even', 'task_status', 'loop_value' ]
-        format = '<QddfBBB'
-        native_format = bytearray('<QddfBBB', 'ascii')
-        orders = [0, 4, 5, 6, 1, 2, 3]
+        fieldnames = ['timestamp', 'spray_duration', 'task_status', 'loop_value', 'target_lat', 'target_lon', 'target_alt']
+        ordered_fieldnames = [ 'timestamp', 'target_lat', 'target_lon', 'spray_duration', 'target_alt', 'task_status', 'loop_value' ]
+        format = '<QddffBB'
+        native_format = bytearray('<QddffBB', 'ascii')
+        orders = [0, 3, 5, 6, 1, 2, 4]
         lengths = [1, 1, 1, 1, 1, 1, 1]
         array_lengths = [0, 0, 0, 0, 0, 0, 0]
-        crc_extra = 211
+        crc_extra = 252
 
-        def __init__(self, timestamp, num_odd_even, task_status, loop_value, target_lat, target_lon, target_alt):
+        def __init__(self, timestamp, spray_duration, task_status, loop_value, target_lat, target_lon, target_alt):
                 MAVLink_message.__init__(self, MAVLink_task_status_monitor_p2g_message.id, MAVLink_task_status_monitor_p2g_message.name)
                 self._fieldnames = MAVLink_task_status_monitor_p2g_message.fieldnames
                 self.timestamp = timestamp
-                self.num_odd_even = num_odd_even
+                self.spray_duration = spray_duration
                 self.task_status = task_status
                 self.loop_value = loop_value
                 self.target_lat = target_lat
@@ -3024,7 +3016,7 @@ class MAVLink_task_status_monitor_p2g_message(MAVLink_message):
                 self.target_alt = target_alt
 
         def pack(self, mav, force_mavlink1=False):
-                return MAVLink_message.pack(self, mav, 211, struct.pack('<QddfBBB', self.timestamp, self.target_lat, self.target_lon, self.target_alt, self.num_odd_even, self.task_status, self.loop_value), force_mavlink1=force_mavlink1)
+                return MAVLink_message.pack(self, mav, 252, struct.pack('<QddffBB', self.timestamp, self.target_lat, self.target_lon, self.spray_duration, self.target_alt, self.task_status, self.loop_value), force_mavlink1=force_mavlink1)
 
 class MAVLink_vision_num_scan_m2p_message(MAVLink_message):
         '''
@@ -3187,238 +3179,6 @@ class MAVLink_obstacle_position_p2g_message(MAVLink_message):
 
         def pack(self, mav, force_mavlink1=False):
                 return MAVLink_message.pack(self, mav, 218, struct.pack('<QfffB', self.timestamp, self.obstacle_x, self.obstacle_y, self.obstacle_z, self.obstacle_valid), force_mavlink1=force_mavlink1)
-
-class MAVLink_fixed_target_position_message(MAVLink_message):
-        '''
-        Some fixed positions that would be goten before takeoff by GPS
-        (GCS->Pix->Mavros)
-        '''
-        id = MAVLINK_MSG_ID_FIXED_TARGET_POSITION
-        name = 'FIXED_TARGET_POSITION'
-        fieldnames = ['home_lat', 'home_lon', 'home_alt', 'observe_lat', 'observe_lon', 'observe_alt', 'spray_left_lat', 'spray_left_lon', 'spray_left_alt', 'spray_right_lat', 'spray_right_lon', 'spray_right_alt']
-        ordered_fieldnames = [ 'home_lat', 'home_lon', 'observe_lat', 'observe_lon', 'spray_left_lat', 'spray_left_lon', 'spray_right_lat', 'spray_right_lon', 'home_alt', 'observe_alt', 'spray_left_alt', 'spray_right_alt' ]
-        format = '<ddddddddffff'
-        native_format = bytearray('<ddddddddffff', 'ascii')
-        orders = [0, 1, 8, 2, 3, 9, 4, 5, 10, 6, 7, 11]
-        lengths = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-        array_lengths = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-        crc_extra = 173
-
-        def __init__(self, home_lat, home_lon, home_alt, observe_lat, observe_lon, observe_alt, spray_left_lat, spray_left_lon, spray_left_alt, spray_right_lat, spray_right_lon, spray_right_alt):
-                MAVLink_message.__init__(self, MAVLink_fixed_target_position_message.id, MAVLink_fixed_target_position_message.name)
-                self._fieldnames = MAVLink_fixed_target_position_message.fieldnames
-                self.home_lat = home_lat
-                self.home_lon = home_lon
-                self.home_alt = home_alt
-                self.observe_lat = observe_lat
-                self.observe_lon = observe_lon
-                self.observe_alt = observe_alt
-                self.spray_left_lat = spray_left_lat
-                self.spray_left_lon = spray_left_lon
-                self.spray_left_alt = spray_left_alt
-                self.spray_right_lat = spray_right_lat
-                self.spray_right_lon = spray_right_lon
-                self.spray_right_alt = spray_right_alt
-
-        def pack(self, mav, force_mavlink1=False):
-                return MAVLink_message.pack(self, mav, 173, struct.pack('<ddddddddffff', self.home_lat, self.home_lon, self.observe_lat, self.observe_lon, self.spray_left_lat, self.spray_left_lon, self.spray_right_lat, self.spray_right_lon, self.home_alt, self.observe_alt, self.spray_left_alt, self.spray_right_alt), force_mavlink1=force_mavlink1)
-
-class MAVLink_fixed_target_return_message(MAVLink_message):
-        '''
-        Pix gets FIXED_TARGET_POSITION message would return this
-        message (Pix->GCS)
-        '''
-        id = MAVLINK_MSG_ID_FIXED_TARGET_RETURN
-        name = 'FIXED_TARGET_RETURN'
-        fieldnames = ['timestamp', 'home_lat', 'home_lon', 'home_alt', 'observe_lat', 'observe_lon', 'observe_alt', 'spray_left_lat', 'spray_left_lon', 'spray_left_alt', 'spray_right_lat', 'spray_right_lon', 'spray_right_alt']
-        ordered_fieldnames = [ 'timestamp', 'home_lat', 'home_lon', 'observe_lat', 'observe_lon', 'spray_left_lat', 'spray_left_lon', 'spray_right_lat', 'spray_right_lon', 'home_alt', 'observe_alt', 'spray_left_alt', 'spray_right_alt' ]
-        format = '<Qddddddddffff'
-        native_format = bytearray('<Qddddddddffff', 'ascii')
-        orders = [0, 1, 2, 9, 3, 4, 10, 5, 6, 11, 7, 8, 12]
-        lengths = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-        array_lengths = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-        crc_extra = 156
-
-        def __init__(self, timestamp, home_lat, home_lon, home_alt, observe_lat, observe_lon, observe_alt, spray_left_lat, spray_left_lon, spray_left_alt, spray_right_lat, spray_right_lon, spray_right_alt):
-                MAVLink_message.__init__(self, MAVLink_fixed_target_return_message.id, MAVLink_fixed_target_return_message.name)
-                self._fieldnames = MAVLink_fixed_target_return_message.fieldnames
-                self.timestamp = timestamp
-                self.home_lat = home_lat
-                self.home_lon = home_lon
-                self.home_alt = home_alt
-                self.observe_lat = observe_lat
-                self.observe_lon = observe_lon
-                self.observe_alt = observe_alt
-                self.spray_left_lat = spray_left_lat
-                self.spray_left_lon = spray_left_lon
-                self.spray_left_alt = spray_left_alt
-                self.spray_right_lat = spray_right_lat
-                self.spray_right_lon = spray_right_lon
-                self.spray_right_alt = spray_right_alt
-
-        def pack(self, mav, force_mavlink1=False):
-                return MAVLink_message.pack(self, mav, 156, struct.pack('<Qddddddddffff', self.timestamp, self.home_lat, self.home_lon, self.observe_lat, self.observe_lon, self.spray_left_lat, self.spray_left_lon, self.spray_right_lat, self.spray_right_lon, self.home_alt, self.observe_alt, self.spray_left_alt, self.spray_right_alt), force_mavlink1=force_mavlink1)
-
-class MAVLink_yaw_sp_calculated_message(MAVLink_message):
-        '''
-        A yaw set point calculated by SBC from FIXED_TARGET_POSITION
-        message (Mavros->Pix->GCS)
-        '''
-        id = MAVLINK_MSG_ID_YAW_SP_CALCULATED
-        name = 'YAW_SP_CALCULATED'
-        fieldnames = ['timestamp', 'yaw_sp']
-        ordered_fieldnames = [ 'timestamp', 'yaw_sp' ]
-        format = '<Qf'
-        native_format = bytearray('<Qf', 'ascii')
-        orders = [0, 1]
-        lengths = [1, 1]
-        array_lengths = [0, 0]
-        crc_extra = 81
-
-        def __init__(self, timestamp, yaw_sp):
-                MAVLink_message.__init__(self, MAVLink_yaw_sp_calculated_message.id, MAVLink_yaw_sp_calculated_message.name)
-                self._fieldnames = MAVLink_yaw_sp_calculated_message.fieldnames
-                self.timestamp = timestamp
-                self.yaw_sp = yaw_sp
-
-        def pack(self, mav, force_mavlink1=False):
-                return MAVLink_message.pack(self, mav, 81, struct.pack('<Qf', self.timestamp, self.yaw_sp), force_mavlink1=force_mavlink1)
-
-class MAVLink_task_status_change_message(MAVLink_message):
-        '''
-        GCS would change the task status of RUAV by this message
-        (GCS->Pix->Mavros)
-        '''
-        id = MAVLINK_MSG_ID_TASK_STATUS_CHANGE
-        name = 'TASK_STATUS_CHANGE'
-        fieldnames = ['num_odd_even', 'task_status', 'loop_value']
-        ordered_fieldnames = [ 'num_odd_even', 'task_status', 'loop_value' ]
-        format = '<BBB'
-        native_format = bytearray('<BBB', 'ascii')
-        orders = [0, 1, 2]
-        lengths = [1, 1, 1]
-        array_lengths = [0, 0, 0]
-        crc_extra = 251
-
-        def __init__(self, num_odd_even, task_status, loop_value):
-                MAVLink_message.__init__(self, MAVLink_task_status_change_message.id, MAVLink_task_status_change_message.name)
-                self._fieldnames = MAVLink_task_status_change_message.fieldnames
-                self.num_odd_even = num_odd_even
-                self.task_status = task_status
-                self.loop_value = loop_value
-
-        def pack(self, mav, force_mavlink1=False):
-                return MAVLink_message.pack(self, mav, 251, struct.pack('<BBB', self.num_odd_even, self.task_status, self.loop_value), force_mavlink1=force_mavlink1)
-
-class MAVLink_task_status_monitor_message(MAVLink_message):
-        '''
-        Return current task statue and taget point (Mavros->Pix->GCS)
-        '''
-        id = MAVLINK_MSG_ID_TASK_STATUS_MONITOR
-        name = 'TASK_STATUS_MONITOR'
-        fieldnames = ['timestamp', 'num_odd_even', 'task_status', 'loop_value', 'target_lat', 'target_lon', 'target_alt']
-        ordered_fieldnames = [ 'timestamp', 'target_lat', 'target_lon', 'target_alt', 'num_odd_even', 'task_status', 'loop_value' ]
-        format = '<QddfBBB'
-        native_format = bytearray('<QddfBBB', 'ascii')
-        orders = [0, 4, 5, 6, 1, 2, 3]
-        lengths = [1, 1, 1, 1, 1, 1, 1]
-        array_lengths = [0, 0, 0, 0, 0, 0, 0]
-        crc_extra = 54
-
-        def __init__(self, timestamp, num_odd_even, task_status, loop_value, target_lat, target_lon, target_alt):
-                MAVLink_message.__init__(self, MAVLink_task_status_monitor_message.id, MAVLink_task_status_monitor_message.name)
-                self._fieldnames = MAVLink_task_status_monitor_message.fieldnames
-                self.timestamp = timestamp
-                self.num_odd_even = num_odd_even
-                self.task_status = task_status
-                self.loop_value = loop_value
-                self.target_lat = target_lat
-                self.target_lon = target_lon
-                self.target_alt = target_alt
-
-        def pack(self, mav, force_mavlink1=False):
-                return MAVLink_message.pack(self, mav, 54, struct.pack('<QddfBBB', self.timestamp, self.target_lat, self.target_lon, self.target_alt, self.num_odd_even, self.task_status, self.loop_value), force_mavlink1=force_mavlink1)
-
-class MAVLink_vision_num_scan_message(MAVLink_message):
-        '''
-        Scan all numbers and get their positions in the beginning
-        (Mavros->Pix->GCS)
-        '''
-        id = MAVLINK_MSG_ID_VISION_NUM_SCAN
-        name = 'VISION_NUM_SCAN'
-        fieldnames = ['timestamp', 'board_num', 'board_x', 'board_y', 'board_z', 'board_valid']
-        ordered_fieldnames = [ 'timestamp', 'board_x', 'board_y', 'board_z', 'board_num', 'board_valid' ]
-        format = '<QfffBB'
-        native_format = bytearray('<QfffBB', 'ascii')
-        orders = [0, 4, 1, 2, 3, 5]
-        lengths = [1, 1, 1, 1, 1, 1]
-        array_lengths = [0, 0, 0, 0, 0, 0]
-        crc_extra = 200
-
-        def __init__(self, timestamp, board_num, board_x, board_y, board_z, board_valid):
-                MAVLink_message.__init__(self, MAVLink_vision_num_scan_message.id, MAVLink_vision_num_scan_message.name)
-                self._fieldnames = MAVLink_vision_num_scan_message.fieldnames
-                self.timestamp = timestamp
-                self.board_num = board_num
-                self.board_x = board_x
-                self.board_y = board_y
-                self.board_z = board_z
-                self.board_valid = board_valid
-
-        def pack(self, mav, force_mavlink1=False):
-                return MAVLink_message.pack(self, mav, 200, struct.pack('<QfffBB', self.timestamp, self.board_x, self.board_y, self.board_z, self.board_num, self.board_valid), force_mavlink1=force_mavlink1)
-
-class MAVLink_vision_one_num_get_message(MAVLink_message):
-        '''
-        Get the number by vision in task (Mavros->Pix->GCS)
-        '''
-        id = MAVLINK_MSG_ID_VISION_ONE_NUM_GET
-        name = 'VISION_ONE_NUM_GET'
-        fieldnames = ['timestamp', 'loop_value', 'num']
-        ordered_fieldnames = [ 'timestamp', 'loop_value', 'num' ]
-        format = '<QBB'
-        native_format = bytearray('<QBB', 'ascii')
-        orders = [0, 1, 2]
-        lengths = [1, 1, 1]
-        array_lengths = [0, 0, 0]
-        crc_extra = 31
-
-        def __init__(self, timestamp, loop_value, num):
-                MAVLink_message.__init__(self, MAVLink_vision_one_num_get_message.id, MAVLink_vision_one_num_get_message.name)
-                self._fieldnames = MAVLink_vision_one_num_get_message.fieldnames
-                self.timestamp = timestamp
-                self.loop_value = loop_value
-                self.num = num
-
-        def pack(self, mav, force_mavlink1=False):
-                return MAVLink_message.pack(self, mav, 31, struct.pack('<QBB', self.timestamp, self.loop_value, self.num), force_mavlink1=force_mavlink1)
-
-class MAVLink_obstacle_position_message(MAVLink_message):
-        '''
-        Get the obstacle position (Mavros->Pix->GCS)
-        '''
-        id = MAVLINK_MSG_ID_OBSTACLE_POSITION
-        name = 'OBSTACLE_POSITION'
-        fieldnames = ['timestamp', 'obstacle_x', 'obstacle_y', 'obstacle_z', 'obstacle_valid']
-        ordered_fieldnames = [ 'timestamp', 'obstacle_x', 'obstacle_y', 'obstacle_z', 'obstacle_valid' ]
-        format = '<QfffB'
-        native_format = bytearray('<QfffB', 'ascii')
-        orders = [0, 1, 2, 3, 4]
-        lengths = [1, 1, 1, 1, 1]
-        array_lengths = [0, 0, 0, 0, 0]
-        crc_extra = 119
-
-        def __init__(self, timestamp, obstacle_x, obstacle_y, obstacle_z, obstacle_valid):
-                MAVLink_message.__init__(self, MAVLink_obstacle_position_message.id, MAVLink_obstacle_position_message.name)
-                self._fieldnames = MAVLink_obstacle_position_message.fieldnames
-                self.timestamp = timestamp
-                self.obstacle_x = obstacle_x
-                self.obstacle_y = obstacle_y
-                self.obstacle_z = obstacle_z
-                self.obstacle_valid = obstacle_valid
-
-        def pack(self, mav, force_mavlink1=False):
-                return MAVLink_message.pack(self, mav, 119, struct.pack('<QfffB', self.timestamp, self.obstacle_x, self.obstacle_y, self.obstacle_z, self.obstacle_valid), force_mavlink1=force_mavlink1)
 
 class MAVLink_heartbeat_message(MAVLink_message):
         '''
@@ -7667,14 +7427,6 @@ mavlink_map = {
         MAVLINK_MSG_ID_VISION_ONE_NUM_GET_P2G : MAVLink_vision_one_num_get_p2g_message,
         MAVLINK_MSG_ID_OBSTACLE_POSITION_M2P : MAVLink_obstacle_position_m2p_message,
         MAVLINK_MSG_ID_OBSTACLE_POSITION_P2G : MAVLink_obstacle_position_p2g_message,
-        MAVLINK_MSG_ID_FIXED_TARGET_POSITION : MAVLink_fixed_target_position_message,
-        MAVLINK_MSG_ID_FIXED_TARGET_RETURN : MAVLink_fixed_target_return_message,
-        MAVLINK_MSG_ID_YAW_SP_CALCULATED : MAVLink_yaw_sp_calculated_message,
-        MAVLINK_MSG_ID_TASK_STATUS_CHANGE : MAVLink_task_status_change_message,
-        MAVLINK_MSG_ID_TASK_STATUS_MONITOR : MAVLink_task_status_monitor_message,
-        MAVLINK_MSG_ID_VISION_NUM_SCAN : MAVLink_vision_num_scan_message,
-        MAVLINK_MSG_ID_VISION_ONE_NUM_GET : MAVLink_vision_one_num_get_message,
-        MAVLINK_MSG_ID_OBSTACLE_POSITION : MAVLink_obstacle_position_message,
         MAVLINK_MSG_ID_HEARTBEAT : MAVLink_heartbeat_message,
         MAVLINK_MSG_ID_SYS_STATUS : MAVLink_sys_status_message,
         MAVLINK_MSG_ID_SYSTEM_TIME : MAVLink_system_time_message,
@@ -8807,56 +8559,56 @@ class MAVLink(object):
                 '''
                 return self.send(self.yaw_sp_calculated_p2g_encode(timestamp, yaw_sp), force_mavlink1=force_mavlink1)
 
-        def task_status_change_g2p_encode(self, num_odd_even, task_status, loop_value):
+        def task_status_change_g2p_encode(self, spray_duration, task_status, loop_value):
                 '''
                 GCS would change the task status of RUAV by this message (GCS->Pix)
 
-                num_odd_even              : 0, 1 or 2 represent spray all number, odd number or even number (uint8_t)
+                spray_duration            : spray duration in task set by GCS (float)
                 task_status               : task status NO. about Task State Machine, 0~16~30 (uint8_t)
                 loop_value                : loop number of current task, 0~5 (uint8_t)
 
                 '''
-                return MAVLink_task_status_change_g2p_message(num_odd_even, task_status, loop_value)
+                return MAVLink_task_status_change_g2p_message(spray_duration, task_status, loop_value)
 
-        def task_status_change_g2p_send(self, num_odd_even, task_status, loop_value, force_mavlink1=False):
+        def task_status_change_g2p_send(self, spray_duration, task_status, loop_value, force_mavlink1=False):
                 '''
                 GCS would change the task status of RUAV by this message (GCS->Pix)
 
-                num_odd_even              : 0, 1 or 2 represent spray all number, odd number or even number (uint8_t)
+                spray_duration            : spray duration in task set by GCS (float)
                 task_status               : task status NO. about Task State Machine, 0~16~30 (uint8_t)
                 loop_value                : loop number of current task, 0~5 (uint8_t)
 
                 '''
-                return self.send(self.task_status_change_g2p_encode(num_odd_even, task_status, loop_value), force_mavlink1=force_mavlink1)
+                return self.send(self.task_status_change_g2p_encode(spray_duration, task_status, loop_value), force_mavlink1=force_mavlink1)
 
-        def task_status_change_p2m_encode(self, num_odd_even, task_status, loop_value):
+        def task_status_change_p2m_encode(self, spray_duration, task_status, loop_value):
                 '''
                 GCS would change the task status of RUAV by this message (Pix->Mavros)
 
-                num_odd_even              : 0, 1 or 2 represent spray all number, odd number or even number (uint8_t)
+                spray_duration            : spray duration in task set by GCS (float)
                 task_status               : task status NO. about Task State Machine, 0~16~30 (uint8_t)
                 loop_value                : loop number of current task, 0~5 (uint8_t)
 
                 '''
-                return MAVLink_task_status_change_p2m_message(num_odd_even, task_status, loop_value)
+                return MAVLink_task_status_change_p2m_message(spray_duration, task_status, loop_value)
 
-        def task_status_change_p2m_send(self, num_odd_even, task_status, loop_value, force_mavlink1=False):
+        def task_status_change_p2m_send(self, spray_duration, task_status, loop_value, force_mavlink1=False):
                 '''
                 GCS would change the task status of RUAV by this message (Pix->Mavros)
 
-                num_odd_even              : 0, 1 or 2 represent spray all number, odd number or even number (uint8_t)
+                spray_duration            : spray duration in task set by GCS (float)
                 task_status               : task status NO. about Task State Machine, 0~16~30 (uint8_t)
                 loop_value                : loop number of current task, 0~5 (uint8_t)
 
                 '''
-                return self.send(self.task_status_change_p2m_encode(num_odd_even, task_status, loop_value), force_mavlink1=force_mavlink1)
+                return self.send(self.task_status_change_p2m_encode(spray_duration, task_status, loop_value), force_mavlink1=force_mavlink1)
 
-        def task_status_monitor_m2p_encode(self, timestamp, num_odd_even, task_status, loop_value, target_lat, target_lon, target_alt):
+        def task_status_monitor_m2p_encode(self, timestamp, spray_duration, task_status, loop_value, target_lat, target_lon, target_alt):
                 '''
                 Return current task statue and taget point (Mavros->Pix)
 
                 timestamp                 : timestamp (uint64_t)
-                num_odd_even              : 0, 1 or 2 represent spray all number, odd number or even number (uint8_t)
+                spray_duration            : spray duration in task set by GCS, a constant value (float)
                 task_status               : task status NO. about Task State Machine, 0~16~30 (uint8_t)
                 loop_value                : loop number of current task, 0~5 (uint8_t)
                 target_lat                : target latitude, in deg (double)
@@ -8864,14 +8616,14 @@ class MAVLink(object):
                 target_alt                : target altitude, in m (float)
 
                 '''
-                return MAVLink_task_status_monitor_m2p_message(timestamp, num_odd_even, task_status, loop_value, target_lat, target_lon, target_alt)
+                return MAVLink_task_status_monitor_m2p_message(timestamp, spray_duration, task_status, loop_value, target_lat, target_lon, target_alt)
 
-        def task_status_monitor_m2p_send(self, timestamp, num_odd_even, task_status, loop_value, target_lat, target_lon, target_alt, force_mavlink1=False):
+        def task_status_monitor_m2p_send(self, timestamp, spray_duration, task_status, loop_value, target_lat, target_lon, target_alt, force_mavlink1=False):
                 '''
                 Return current task statue and taget point (Mavros->Pix)
 
                 timestamp                 : timestamp (uint64_t)
-                num_odd_even              : 0, 1 or 2 represent spray all number, odd number or even number (uint8_t)
+                spray_duration            : spray duration in task set by GCS, a constant value (float)
                 task_status               : task status NO. about Task State Machine, 0~16~30 (uint8_t)
                 loop_value                : loop number of current task, 0~5 (uint8_t)
                 target_lat                : target latitude, in deg (double)
@@ -8879,14 +8631,14 @@ class MAVLink(object):
                 target_alt                : target altitude, in m (float)
 
                 '''
-                return self.send(self.task_status_monitor_m2p_encode(timestamp, num_odd_even, task_status, loop_value, target_lat, target_lon, target_alt), force_mavlink1=force_mavlink1)
+                return self.send(self.task_status_monitor_m2p_encode(timestamp, spray_duration, task_status, loop_value, target_lat, target_lon, target_alt), force_mavlink1=force_mavlink1)
 
-        def task_status_monitor_p2g_encode(self, timestamp, num_odd_even, task_status, loop_value, target_lat, target_lon, target_alt):
+        def task_status_monitor_p2g_encode(self, timestamp, spray_duration, task_status, loop_value, target_lat, target_lon, target_alt):
                 '''
                 Return current task statue and taget point (Pix->GCS)
 
                 timestamp                 : timestamp (uint64_t)
-                num_odd_even              : 0, 1 or 2 represent spray all number, odd number or even number (uint8_t)
+                spray_duration            : spray duration in task set by GCS, a constant value (float)
                 task_status               : task status NO. about Task State Machine, 0~16~30 (uint8_t)
                 loop_value                : loop number of current task, 0~5 (uint8_t)
                 target_lat                : target latitude, in deg (double)
@@ -8894,14 +8646,14 @@ class MAVLink(object):
                 target_alt                : target altitude, in m (float)
 
                 '''
-                return MAVLink_task_status_monitor_p2g_message(timestamp, num_odd_even, task_status, loop_value, target_lat, target_lon, target_alt)
+                return MAVLink_task_status_monitor_p2g_message(timestamp, spray_duration, task_status, loop_value, target_lat, target_lon, target_alt)
 
-        def task_status_monitor_p2g_send(self, timestamp, num_odd_even, task_status, loop_value, target_lat, target_lon, target_alt, force_mavlink1=False):
+        def task_status_monitor_p2g_send(self, timestamp, spray_duration, task_status, loop_value, target_lat, target_lon, target_alt, force_mavlink1=False):
                 '''
                 Return current task statue and taget point (Pix->GCS)
 
                 timestamp                 : timestamp (uint64_t)
-                num_odd_even              : 0, 1 or 2 represent spray all number, odd number or even number (uint8_t)
+                spray_duration            : spray duration in task set by GCS, a constant value (float)
                 task_status               : task status NO. about Task State Machine, 0~16~30 (uint8_t)
                 loop_value                : loop number of current task, 0~5 (uint8_t)
                 target_lat                : target latitude, in deg (double)
@@ -8909,7 +8661,7 @@ class MAVLink(object):
                 target_alt                : target altitude, in m (float)
 
                 '''
-                return self.send(self.task_status_monitor_p2g_encode(timestamp, num_odd_even, task_status, loop_value, target_lat, target_lon, target_alt), force_mavlink1=force_mavlink1)
+                return self.send(self.task_status_monitor_p2g_encode(timestamp, spray_duration, task_status, loop_value, target_lat, target_lon, target_alt), force_mavlink1=force_mavlink1)
 
         def vision_num_scan_m2p_encode(self, timestamp, board_num, board_x, board_y, board_z, board_valid):
                 '''
@@ -9064,246 +8816,6 @@ class MAVLink(object):
 
                 '''
                 return self.send(self.obstacle_position_p2g_encode(timestamp, obstacle_x, obstacle_y, obstacle_z, obstacle_valid), force_mavlink1=force_mavlink1)
-
-        def fixed_target_position_encode(self, home_lat, home_lon, home_alt, observe_lat, observe_lon, observe_alt, spray_left_lat, spray_left_lon, spray_left_alt, spray_right_lat, spray_right_lon, spray_right_alt):
-                '''
-                Some fixed positions that would be goten before takeoff by GPS
-                (GCS->Pix->Mavros)
-
-                home_lat                  : home point latitude, in deg (double)
-                home_lon                  : home point longitude, in deg (double)
-                home_alt                  : home point altitude, in m (float)
-                observe_lat               : observe point latitude, in deg (double)
-                observe_lon               : observe point longitude, in deg (double)
-                observe_alt               : observe point altitude, in m (float)
-                spray_left_lat            : spray point latitude (left), in deg (double)
-                spray_left_lon            : spray point longitude (left), in deg (double)
-                spray_left_alt            : spray point altitude (left), in m (float)
-                spray_right_lat           : spray point latitude (right), in deg (double)
-                spray_right_lon           : spray point longitude (right), in deg (double)
-                spray_right_alt           : spray point altitude (right), in m (float)
-
-                '''
-                return MAVLink_fixed_target_position_message(home_lat, home_lon, home_alt, observe_lat, observe_lon, observe_alt, spray_left_lat, spray_left_lon, spray_left_alt, spray_right_lat, spray_right_lon, spray_right_alt)
-
-        def fixed_target_position_send(self, home_lat, home_lon, home_alt, observe_lat, observe_lon, observe_alt, spray_left_lat, spray_left_lon, spray_left_alt, spray_right_lat, spray_right_lon, spray_right_alt, force_mavlink1=False):
-                '''
-                Some fixed positions that would be goten before takeoff by GPS
-                (GCS->Pix->Mavros)
-
-                home_lat                  : home point latitude, in deg (double)
-                home_lon                  : home point longitude, in deg (double)
-                home_alt                  : home point altitude, in m (float)
-                observe_lat               : observe point latitude, in deg (double)
-                observe_lon               : observe point longitude, in deg (double)
-                observe_alt               : observe point altitude, in m (float)
-                spray_left_lat            : spray point latitude (left), in deg (double)
-                spray_left_lon            : spray point longitude (left), in deg (double)
-                spray_left_alt            : spray point altitude (left), in m (float)
-                spray_right_lat           : spray point latitude (right), in deg (double)
-                spray_right_lon           : spray point longitude (right), in deg (double)
-                spray_right_alt           : spray point altitude (right), in m (float)
-
-                '''
-                return self.send(self.fixed_target_position_encode(home_lat, home_lon, home_alt, observe_lat, observe_lon, observe_alt, spray_left_lat, spray_left_lon, spray_left_alt, spray_right_lat, spray_right_lon, spray_right_alt), force_mavlink1=force_mavlink1)
-
-        def fixed_target_return_encode(self, timestamp, home_lat, home_lon, home_alt, observe_lat, observe_lon, observe_alt, spray_left_lat, spray_left_lon, spray_left_alt, spray_right_lat, spray_right_lon, spray_right_alt):
-                '''
-                Pix gets FIXED_TARGET_POSITION message would return this message
-                (Pix->GCS)
-
-                timestamp                 : timestamp (uint64_t)
-                home_lat                  : home point latitude, in deg (double)
-                home_lon                  : home point longitude, in deg (double)
-                home_alt                  : home point altitude, in m (float)
-                observe_lat               : observe point latitude, in deg (double)
-                observe_lon               : observe point longitude, in deg (double)
-                observe_alt               : observe point altitude, in m (float)
-                spray_left_lat            : spray point latitude (left), in deg (double)
-                spray_left_lon            : spray point longitude (left), in deg (double)
-                spray_left_alt            : spray point altitude (left), in m (float)
-                spray_right_lat           : spray point latitude (right), in deg (double)
-                spray_right_lon           : spray point longitude (right), in deg (double)
-                spray_right_alt           : spray point altitude (right), in m (float)
-
-                '''
-                return MAVLink_fixed_target_return_message(timestamp, home_lat, home_lon, home_alt, observe_lat, observe_lon, observe_alt, spray_left_lat, spray_left_lon, spray_left_alt, spray_right_lat, spray_right_lon, spray_right_alt)
-
-        def fixed_target_return_send(self, timestamp, home_lat, home_lon, home_alt, observe_lat, observe_lon, observe_alt, spray_left_lat, spray_left_lon, spray_left_alt, spray_right_lat, spray_right_lon, spray_right_alt, force_mavlink1=False):
-                '''
-                Pix gets FIXED_TARGET_POSITION message would return this message
-                (Pix->GCS)
-
-                timestamp                 : timestamp (uint64_t)
-                home_lat                  : home point latitude, in deg (double)
-                home_lon                  : home point longitude, in deg (double)
-                home_alt                  : home point altitude, in m (float)
-                observe_lat               : observe point latitude, in deg (double)
-                observe_lon               : observe point longitude, in deg (double)
-                observe_alt               : observe point altitude, in m (float)
-                spray_left_lat            : spray point latitude (left), in deg (double)
-                spray_left_lon            : spray point longitude (left), in deg (double)
-                spray_left_alt            : spray point altitude (left), in m (float)
-                spray_right_lat           : spray point latitude (right), in deg (double)
-                spray_right_lon           : spray point longitude (right), in deg (double)
-                spray_right_alt           : spray point altitude (right), in m (float)
-
-                '''
-                return self.send(self.fixed_target_return_encode(timestamp, home_lat, home_lon, home_alt, observe_lat, observe_lon, observe_alt, spray_left_lat, spray_left_lon, spray_left_alt, spray_right_lat, spray_right_lon, spray_right_alt), force_mavlink1=force_mavlink1)
-
-        def yaw_sp_calculated_encode(self, timestamp, yaw_sp):
-                '''
-                A yaw set point calculated by SBC from FIXED_TARGET_POSITION message
-                (Mavros->Pix->GCS)
-
-                timestamp                 : timestamp (uint64_t)
-                yaw_sp                    : the calculated yaw set point, in rad (-pi ... pi) (float)
-
-                '''
-                return MAVLink_yaw_sp_calculated_message(timestamp, yaw_sp)
-
-        def yaw_sp_calculated_send(self, timestamp, yaw_sp, force_mavlink1=False):
-                '''
-                A yaw set point calculated by SBC from FIXED_TARGET_POSITION message
-                (Mavros->Pix->GCS)
-
-                timestamp                 : timestamp (uint64_t)
-                yaw_sp                    : the calculated yaw set point, in rad (-pi ... pi) (float)
-
-                '''
-                return self.send(self.yaw_sp_calculated_encode(timestamp, yaw_sp), force_mavlink1=force_mavlink1)
-
-        def task_status_change_encode(self, num_odd_even, task_status, loop_value):
-                '''
-                GCS would change the task status of RUAV by this message
-                (GCS->Pix->Mavros)
-
-                num_odd_even              : 0, 1 or 2 represent spray all number, odd number or even number (uint8_t)
-                task_status               : task status NO. about Task State Machine, 0~16~30 (uint8_t)
-                loop_value                : loop number of current task, 0~5 (uint8_t)
-
-                '''
-                return MAVLink_task_status_change_message(num_odd_even, task_status, loop_value)
-
-        def task_status_change_send(self, num_odd_even, task_status, loop_value, force_mavlink1=False):
-                '''
-                GCS would change the task status of RUAV by this message
-                (GCS->Pix->Mavros)
-
-                num_odd_even              : 0, 1 or 2 represent spray all number, odd number or even number (uint8_t)
-                task_status               : task status NO. about Task State Machine, 0~16~30 (uint8_t)
-                loop_value                : loop number of current task, 0~5 (uint8_t)
-
-                '''
-                return self.send(self.task_status_change_encode(num_odd_even, task_status, loop_value), force_mavlink1=force_mavlink1)
-
-        def task_status_monitor_encode(self, timestamp, num_odd_even, task_status, loop_value, target_lat, target_lon, target_alt):
-                '''
-                Return current task statue and taget point (Mavros->Pix->GCS)
-
-                timestamp                 : timestamp (uint64_t)
-                num_odd_even              : 0, 1 or 2 represent spray all number, odd number or even number (uint8_t)
-                task_status               : task status NO. about Task State Machine, 0~16~30 (uint8_t)
-                loop_value                : loop number of current task, 0~5 (uint8_t)
-                target_lat                : target latitude, in deg (double)
-                target_lon                : target longitude, in deg (double)
-                target_alt                : target altitude, in m (float)
-
-                '''
-                return MAVLink_task_status_monitor_message(timestamp, num_odd_even, task_status, loop_value, target_lat, target_lon, target_alt)
-
-        def task_status_monitor_send(self, timestamp, num_odd_even, task_status, loop_value, target_lat, target_lon, target_alt, force_mavlink1=False):
-                '''
-                Return current task statue and taget point (Mavros->Pix->GCS)
-
-                timestamp                 : timestamp (uint64_t)
-                num_odd_even              : 0, 1 or 2 represent spray all number, odd number or even number (uint8_t)
-                task_status               : task status NO. about Task State Machine, 0~16~30 (uint8_t)
-                loop_value                : loop number of current task, 0~5 (uint8_t)
-                target_lat                : target latitude, in deg (double)
-                target_lon                : target longitude, in deg (double)
-                target_alt                : target altitude, in m (float)
-
-                '''
-                return self.send(self.task_status_monitor_encode(timestamp, num_odd_even, task_status, loop_value, target_lat, target_lon, target_alt), force_mavlink1=force_mavlink1)
-
-        def vision_num_scan_encode(self, timestamp, board_num, board_x, board_y, board_z, board_valid):
-                '''
-                Scan all numbers and get their positions in the beginning
-                (Mavros->Pix->GCS)
-
-                timestamp                 : timestamp (uint64_t)
-                board_num                 : current board number (uint8_t)
-                board_x                   : current board number X position (NED) (float)
-                board_y                   : current board number Y position (NED) (float)
-                board_z                   : current board number Z position (NED) (float)
-                board_valid               : whether this number is gotten (uint8_t)
-
-                '''
-                return MAVLink_vision_num_scan_message(timestamp, board_num, board_x, board_y, board_z, board_valid)
-
-        def vision_num_scan_send(self, timestamp, board_num, board_x, board_y, board_z, board_valid, force_mavlink1=False):
-                '''
-                Scan all numbers and get their positions in the beginning
-                (Mavros->Pix->GCS)
-
-                timestamp                 : timestamp (uint64_t)
-                board_num                 : current board number (uint8_t)
-                board_x                   : current board number X position (NED) (float)
-                board_y                   : current board number Y position (NED) (float)
-                board_z                   : current board number Z position (NED) (float)
-                board_valid               : whether this number is gotten (uint8_t)
-
-                '''
-                return self.send(self.vision_num_scan_encode(timestamp, board_num, board_x, board_y, board_z, board_valid), force_mavlink1=force_mavlink1)
-
-        def vision_one_num_get_encode(self, timestamp, loop_value, num):
-                '''
-                Get the number by vision in task (Mavros->Pix->GCS)
-
-                timestamp                 : timestamp (uint64_t)
-                loop_value                : loop number of current task but not 0, 1~5 (uint8_t)
-                num                       : gotten number by vision (uint8_t)
-
-                '''
-                return MAVLink_vision_one_num_get_message(timestamp, loop_value, num)
-
-        def vision_one_num_get_send(self, timestamp, loop_value, num, force_mavlink1=False):
-                '''
-                Get the number by vision in task (Mavros->Pix->GCS)
-
-                timestamp                 : timestamp (uint64_t)
-                loop_value                : loop number of current task but not 0, 1~5 (uint8_t)
-                num                       : gotten number by vision (uint8_t)
-
-                '''
-                return self.send(self.vision_one_num_get_encode(timestamp, loop_value, num), force_mavlink1=force_mavlink1)
-
-        def obstacle_position_encode(self, timestamp, obstacle_x, obstacle_y, obstacle_z, obstacle_valid):
-                '''
-                Get the obstacle position (Mavros->Pix->GCS)
-
-                timestamp                 : timestamp (uint64_t)
-                obstacle_x                : obstacle X position (NED) (float)
-                obstacle_y                : obstacle Y position (NED) (float)
-                obstacle_z                : obstacle Z position (NED) (float)
-                obstacle_valid            : whether the obstacle is valid (uint8_t)
-
-                '''
-                return MAVLink_obstacle_position_message(timestamp, obstacle_x, obstacle_y, obstacle_z, obstacle_valid)
-
-        def obstacle_position_send(self, timestamp, obstacle_x, obstacle_y, obstacle_z, obstacle_valid, force_mavlink1=False):
-                '''
-                Get the obstacle position (Mavros->Pix->GCS)
-
-                timestamp                 : timestamp (uint64_t)
-                obstacle_x                : obstacle X position (NED) (float)
-                obstacle_y                : obstacle Y position (NED) (float)
-                obstacle_z                : obstacle Z position (NED) (float)
-                obstacle_valid            : whether the obstacle is valid (uint8_t)
-
-                '''
-                return self.send(self.obstacle_position_encode(timestamp, obstacle_x, obstacle_y, obstacle_z, obstacle_valid), force_mavlink1=force_mavlink1)
 
         def heartbeat_encode(self, type, autopilot, base_mode, custom_mode, system_status, mavlink_version=3):
                 '''
